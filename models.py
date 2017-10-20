@@ -4,6 +4,7 @@ import os
 
 import peewee
 from playhouse.db_url import connect
+from playhouse.postgres_ext import JSONField
 
 DB = connect(
   os.environ.get(
@@ -19,8 +20,8 @@ class BaseModel (peewee.Model):
 class Person (BaseModel):
   brain_id = peewee.PrimaryKeyField(unique = True)
   name = peewee.CharField(max_length=60)
-  token = peewee.TextField()
-
+  token = JSONField()
+  user_id = peewee.CharField(max_length=60)
 
   def __str__ (self):
     return self.name
