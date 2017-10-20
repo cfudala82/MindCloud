@@ -4,6 +4,7 @@ import uritemplate
 
 import os
 import boto3
+import json
 import datetime
 
 import functools
@@ -15,7 +16,7 @@ from urllib.parse import urlencode
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
-from oauth2client.file import Storage
+from oauth2client.client import AccessTokenCredentials
 
 import tornado.ioloop
 import tornado.web
@@ -42,9 +43,9 @@ class TemplateHandler(tornado.web.RequestHandler):
     user_id = self.get_secure_cookie("user-id")
     # print('Coookie', user_id)
     if user_id:
-        return str(user_id)
-        # lookup user in database
-        # return user
+        print(user_id.decode())
+        user = Person.select().where(Person.user_id == user_id.decode())[0]
+        return user
 
   def render_template (self, tpl, context):
     template = ENV.get_template(tpl)
@@ -65,14 +66,18 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
                 "https://www.googleapis.com/oauth2/v1/userinfo",
                 access_token=access["access_token"])
             print(user)
-            set_user = Person.create(name=user['name'], token=user)
 
-            # is user created?
-            # if true save token else save user and token
-            #
+            person, created = Person.get_or_create(
+                user_id=user['id'],
+                defaults={'name': user['name'], 'token': access}
+            )
+            if not created:
+                person.token = access
+                person.save()
+
             print("here is the user info:", user)
-            self.set_secure_cookie("user-id", "set-user-id")
-            # print('Cookie set!')
+            self.set_secure_cookie("user-id", user['id'])
+            print('Cookie set!')
             self.redirect('page/profile.html', {})
 
         else:
@@ -81,39 +86,24 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
                 response_type='code',
-                # extra_params={'approval_prompt': 'auto'}
                 )
 
 class AddCalendarHandler (TemplateHandler):
     @tornado.web.authenticated
     def post(self):
         SCOPES = 'https://www.googleapis.com/auth/calendar'
-        CLIENT_SECRET_FILE = 'client_secret.json'
         APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+        print(self.current_user.token)
+        credentials = AccessTokenCredentials(self.current_user.token['access_token'], 'my agent/1.0')
 
-        user = self.current_user
-
-        def get_credentials():
-            """Gets valid user credentials from storage.
-
-            If nothing has been stored, or if the stored credentials are invalid,
-            the OAuth2 flow is completed to obtain the new credentials.
-
-            Returns:
-                Credentials, the obtained credential.
-            """
-
-# work on this from database
-# get from database
-            credentials = store.get()
-            if not credentials or credentials.invalid:
-                flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-                flow.user_agent = APPLICATION_NAME
-                if flags:
-                    credentials = tools.run_flow(flow, store, flags)
-                else:
-                    credentials = tools.run(flow, store)
-            return credentials
+        print(credentials.invalid)
+        # if not credentials or credentials.invalid:
+        #     flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        #     flow.user_agent = APPLICATION_NAME
+        #     if flags:
+        #         credentials = tools.run_flow(flow, store, flags)
+        #     else:
+        #         credentials = tools.run(flow, store)
 
         """Shows basic usage of the Google Calendar API.
 
@@ -122,7 +112,6 @@ class AddCalendarHandler (TemplateHandler):
         """
         event = self.get_body_argument('event')
         deadline = self.get_body_argument('deadline')
-        credentials = get_credentials()
         http = credentials.authorize(httplib2.Http())
         service = discovery.build('calendar', 'v3', http=http)
 
