@@ -1,0 +1,27 @@
+
+.head {
+  background-color: blue;
+  height: 100px;
+  width: 100%;
+
+}
+.col1 {
+  background-color: orange;
+  float: left;
+  height: 661px;
+  width: 300px
+}
+
+.col2 {
+  background-color: red;
+  float: left;
+  height: 660px;
+  width: calc(100% - 300px)
+}
+
+.foot1 {
+  background-color: black;
+  margin-top: 659px;
+  height: 100px;
+
+}
