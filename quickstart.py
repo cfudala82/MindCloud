@@ -44,41 +44,41 @@ class TemplateHandler(tornado.web.RequestHandler):
 class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
                                tornado.auth.GoogleOAuth2Mixin):
     # test it
-#     @tornado.auth._auth_return_future
-#     def get_authenticated_user2(self, redirect_uri, code, callback):
-#         http = self.get_auth_http_client()
-#         body = urllib_parse.urlencode({
-#             "redirect_uri": redirect_uri,
-#             "code": code,
-#             "client_id": self.settings[self._OAUTH_SETTINGS_KEY]['key'],
-#             "client_secret": self.settings[self._OAUTH_SETTINGS_KEY]['secret'],
-#             "grant_type": "authorization_code",
-#         })
-#
-#         http.fetch(self._OAUTH_ACCESS_TOKEN_URL,
-#                    functools.partial(self._on_access_token, callback),
-#                    method="POST", headers={'Content-Type': 'application/x-www-form-urlencoded'}, body=body,
-#                    validate_cert=False)
-#
-#
-#     @tornado.auth._auth_return_future
-#     def oauth2_request2(self, url, callback, access_token=None,
-#                        post_args=None, **args):
-#         all_args = {}
-#         if access_token:
-#             all_args["access_token"] = access_token
-#             all_args.update(args)
-#
-#         if all_args:
-#             url += "?" + urllib_parse.urlencode(all_args)
-#         callback = functools.partial(self._on_oauth2_request, callback)
-#         http = self.get_auth_http_client()
-#         if post_args is not None:
-#             http.fetch(url, method="POST", body=urllib_parse.urlencode(post_args),
-#                        callback=callback, validate_cert=False)
-# # When we deploy, validate_cert=True hopefully.
-#         else:
-#             http.fetch(url, callback=callback, validate_cert=False)
+    @tornado.auth._auth_return_future
+    def get_authenticated_user2(self, redirect_uri, code, callback):
+        http = self.get_auth_http_client()
+        body = urllib_parse.urlencode({
+            "redirect_uri": redirect_uri,
+            "code": code,
+            "client_id": self.settings[self._OAUTH_SETTINGS_KEY]['key'],
+            "client_secret": self.settings[self._OAUTH_SETTINGS_KEY]['secret'],
+            "grant_type": "authorization_code",
+        })
+
+        http.fetch(self._OAUTH_ACCESS_TOKEN_URL,
+                   functools.partial(self._on_access_token, callback),
+                   method="POST", headers={'Content-Type': 'application/x-www-form-urlencoded'}, body=body,
+                   validate_cert=False)
+
+
+    @tornado.auth._auth_return_future
+    def oauth2_request2(self, url, callback, access_token=None,
+                       post_args=None, **args):
+        all_args = {}
+        if access_token:
+            all_args["access_token"] = access_token
+            all_args.update(args)
+
+        if all_args:
+            url += "?" + urllib_parse.urlencode(all_args)
+        callback = functools.partial(self._on_oauth2_request, callback)
+        http = self.get_auth_http_client()
+        if post_args is not None:
+            http.fetch(url, method="POST", body=urllib_parse.urlencode(post_args),
+                       callback=callback, validate_cert=False)
+# When we deploy, validate_cert=True hopefully.
+        else:
+            http.fetch(url, callback=callback, validate_cert=False)
 
     @tornado.gen.coroutine
     def get(self):
