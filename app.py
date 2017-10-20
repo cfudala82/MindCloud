@@ -26,7 +26,8 @@ import json
 
 from jinja2 import \
   Environment, PackageLoader, select_autoescape
-# Setup
+
+from models import Person, Goals
 
 ENV = Environment(
   loader=PackageLoader('app', 'templates'),
@@ -37,64 +38,41 @@ PORT = int(os.environ.get('PORT', '5000'))
 
 
 class TemplateHandler(tornado.web.RequestHandler):
+  def get_current_user(self):
+    user_id = self.get_secure_cookie("user-id")
+    # print('Coookie', user_id)
+    if user_id:
+        return str(user_id)
+        # lookup user in database
+        # return user
+
   def render_template (self, tpl, context):
     template = ENV.get_template(tpl)
     self.write(template.render(**context))
 
 class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
                                tornado.auth.GoogleOAuth2Mixin):
-    # test it
-#     @tornado.auth._auth_return_future
-#     def get_authenticated_user2(self, redirect_uri, code, callback):
-#         http = self.get_auth_http_client()
-#         body = urllib_parse.urlencode({
-#             "redirect_uri": redirect_uri,
-#             "code": code,
-#             "client_id": self.settings[self._OAUTH_SETTINGS_KEY]['key'],
-#             "client_secret": self.settings[self._OAUTH_SETTINGS_KEY]['secret'],
-#             "grant_type": "authorization_code",
-#         })
-#
-#         http.fetch(self._OAUTH_ACCESS_TOKEN_URL,
-#                    functools.partial(self._on_access_token, callback),
-#                    method="POST", headers={'Content-Type': 'application/x-www-form-urlencoded'}, body=body,
-#                    validate_cert=False)
-#
-#
-#     @tornado.auth._auth_return_future
-#     def oauth2_request2(self, url, callback, access_token=None,
-#                        post_args=None, **args):
-#         all_args = {}
-#         if access_token:
-#             all_args["access_token"] = access_token
-#             all_args.update(args)
-#
-#         if all_args:
-#             url += "?" + urllib_parse.urlencode(all_args)
-#         callback = functools.partial(self._on_oauth2_request, callback)
-#         http = self.get_auth_http_client()
-#         if post_args is not None:
-#             http.fetch(url, method="POST", body=urllib_parse.urlencode(post_args),
-#                        callback=callback, validate_cert=False)
-# # When we deploy, validate_cert=True hopefully.
-#         else:
-#             http.fetch(url, callback=callback, validate_cert=False)
-
     @tornado.gen.coroutine
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
                 redirect_uri='http://localhost:5000/auth',
                 code=self.get_argument('code'))
-            print(access)
+            # print(access)
             # Save the user with e.g. set_secure_cookie
+
             user = yield self.oauth2_request(
                 "https://www.googleapis.com/oauth2/v1/userinfo",
                 access_token=access["access_token"])
+            print(user)
+            set_user = Person.create(name=user['name'], token=user)
+
             # is user created?
             # if true save token else save user and token
             #
-            # print(user)
+            print("here is the user info:", user)
+            self.set_secure_cookie("user-id", "set-user-id")
+            # print('Cookie set!')
             self.redirect('page/profile.html', {})
 
         else:
@@ -105,11 +83,16 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
                 response_type='code',
                 # extra_params={'approval_prompt': 'auto'}
                 )
+
+class AddCalendarHandler (TemplateHandler):
+    @tornado.web.authenticated
+    def post(self):
         SCOPES = 'https://www.googleapis.com/auth/calendar'
         CLIENT_SECRET_FILE = 'client_secret.json'
         APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
-    def post(self):
+        user = self.current_user
+
         def get_credentials():
             """Gets valid user credentials from storage.
 
@@ -119,25 +102,17 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
             Returns:
                 Credentials, the obtained credential.
             """
-            home_dir = os.path.expanduser('~')
-            credential_dir = os.path.join(home_dir, '.credentials')
-            if not os.path.exists(credential_dir):
-                os.makedirs(credential_dir)
-            credential_path = os.path.join(credential_dir,
-                                           'calendar-python-quickstart.json')
 
 # work on this from database
-            # store = Storage(credential_path)
-            store = Storage(credential_path)
+# get from database
             credentials = store.get()
             if not credentials or credentials.invalid:
                 flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
                 flow.user_agent = APPLICATION_NAME
                 if flags:
                     credentials = tools.run_flow(flow, store, flags)
-                else: # Needed only for compatibility with Python 2.6
+                else:
                     credentials = tools.run(flow, store)
-                print('Storing credentials to ' + credential_path)
             return credentials
 
         """Shows basic usage of the Google Calendar API.
@@ -152,7 +127,6 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
         service = discovery.build('calendar', 'v3', http=http)
 
         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-        # print('Getting the upcoming 10 events')
         created_event = service.events().quickAdd(
             calendarId='primary',  text=event + deadline).execute()
             # created_event = service.events().quickAdd(
@@ -162,64 +136,6 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
         #     print(created_event['id'])
         # main(self.get_body_argument('event'))
 # here's for inserting events into google calendar
-# class EventHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):
-#     try:
-#         import argparse
-#         flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-#     except ImportError:
-#         flags = None
-#
-#     # If modifying these scopes, delete your previously saved credentials
-#     # at ~/.credentials/calendar-python-quickstart.json
-#     SCOPES = 'https://www.googleapis.com/auth/calendar'
-#     CLIENT_SECRET_FILE = 'client_secret.json'
-#     APPLICATION_NAME = 'Google Calendar API Python Quickstart'
-#
-#
-#     def get_credentials():
-#         """Gets valid user credentials from storage.
-#
-#         If nothing has been stored, or if the stored credentials are invalid,
-#         the OAuth2 flow is completed to obtain the new credentials.
-#
-#         Returns:
-#             Credentials, the obtained credential.
-#         """
-#         home_dir = os.path.expanduser('~')
-#         credential_dir = os.path.join(home_dir, '.credentials')
-#         if not os.path.exists(credential_dir):
-#             os.makedirs(credential_dir)
-#         credential_path = os.path.join(credential_dir,
-#                                        'calendar-python-quickstart.json')
-#
-#         store = Storage(credential_path)
-#         credentials = store.get()
-#         if not credentials or credentials.invalid:
-#             flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-#             flow.user_agent = APPLICATION_NAME
-#             if flags:
-#                 credentials = tools.run_flow(flow, store, flags)
-#             else: # Needed only for compatibility with Python 2.6
-#                 credentials = tools.run(flow, store)
-#             print('Storing credentials to ' + credential_path)
-#         return credentials
-#
-#     def main():
-#         """Shows basic usage of the Google Calendar API.
-#
-#         Creates a Google Calendar API service object and outputs a list of the next
-#         10 events on the user's calendar.
-#         """
-#         credentials = get_credentials()
-#         http = credentials.authorize(httplib2.Http())
-#         service = discovery.build('calendar', 'v3', http=http)
-#
-#         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-#         print('Getting the upcoming 10 events')
-#         created_event = service.events().quickAdd(
-#             calendarId='primary',  text='Appointment at Somewhere on October 20th 10am-10:25am').execute()
-#         print(created_event['id'])
-
 
 class MainHandler(TemplateHandler):
   def get(self):
@@ -243,7 +159,9 @@ SETTINGS = {
         "secret":
             "MMV037-nEQO6_BF8CSLAg3M5"
     },
-    "autoreload": True
+    "autoreload": True,
+    "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+    "login_url": "/auth"
 }
 
 
@@ -251,6 +169,7 @@ def make_app():
   return tornado.web.Application([
     (r"/", MainHandler),
     (r"/auth", GoogleOAuth2LoginHandler),
+    (r"/cal", AddCalendarHandler),
     (r"/page/(.*)", PageHandler),
     # (r"/event", EventHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
