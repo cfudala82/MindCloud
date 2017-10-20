@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,3 +12,146 @@
 
 
     
+=======
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="jquery.flowchart.css" rel="stylesheet">
+    <link href="mapPage.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <title>Mind Map</title>
+  </head>
+  <body>
+    <h1>Map Page</h1>
+    <div class="demo" id="example">
+    </div>
+    <script>
+      $(document).ready(function() {
+        $('#example').flowchart({
+          data: data
+        });
+      });
+
+      // $('#example').flowchart({
+      //
+      //   // allows to add links by clicking on lines
+      //   canUserEditLinks: true,
+      //
+      //   // enables drag and drop
+      //   canUserMoveOperators: true,
+      //
+      //   // custom data
+      //   data: {},
+      //
+      //   // distance between the output line and the link
+      //   distanceFromArrow: 3,
+      //
+      //   // default operator class
+      //   defaultOperatorClass: 'flowchart-default-operator',
+      //
+      //   // default color
+      //   defaultLinkColor: '#3366ff',
+      //
+      //   // default link color
+      //   defaultSelectedLinkColor: 'black',
+      //
+      //   // width of the links
+      //   linkWidth: 10,
+      //
+      //   // <a href="http://www.jqueryscript.net/tags.php?/grid/">grid</a> of the operators when moved
+      //   grid: 20,
+      //
+      //   // allows multiple links on the same input line
+      //   multipleLinksOnOutput: false,
+      //
+      //   // allows multiple links on the same output line
+      //   multipleLinksOnInput: false,
+      //
+      //   // Allows to vertical decal the links (in case you override the CSS and links are not aligned with their connectors anymore).
+      //   linkVerticalDecal: 0,
+      //
+      //
+      //   // callbacks
+      //   onOperatorSelect: function (operatorId) {
+      //       return true;
+      //   },
+      //   onOperatorUnselect: function () {
+      //       return true;
+      //   },
+      //   onOperatorMouseOver: function (operatorId) {
+      //       return true;
+      //   },
+      //   onOperatorMouseOut: function (operatorId) {
+      //       return true;
+      //   },
+      //   onLinkSelect: function (linkId) {
+      //       return true;
+      //   },
+      //   onLinkUnselect: function () {
+      //       return true;
+      //   },
+      //   onOperatorCreate: function (operatorId, operatorData, fullElement) {
+      //       return true;
+      //   },
+      //   onLinkCreate: function (linkId, linkData) {
+      //       return true;
+      //   },
+      //   onOperatorDelete: function (operatorId) {
+      //       return true;
+      //   },
+      //   onLinkDelete: function (linkId, forced) {
+      //       return true;
+      //   },
+      //   onOperatorMoved: function (operatorId, position) {
+      //
+      //   },
+      //   onAfterChange: function (changeType) {
+      //
+      //   }
+      //
+      // });
+
+    </script>
+    <script>
+      var data = {
+        operators: {
+          operator1: {
+            top: 20,
+            left: 20,
+            properties: {
+              title: 'Operator 1',
+              inputs: {},
+              outputs: {
+                output_1: {
+                  label: 'Output 1',
+                }
+              }
+            }
+          },
+          operator2: {
+            top: 80,
+            left: 300,
+            properties: {
+              title: 'Operator 2',
+              inputs: {
+                input_1: {
+                  label: 'Input 1',
+                },
+                input_2: {
+                  label: 'Input 2',
+                },
+              },
+              outputs: {}
+            }
+          },
+        }
+      };
+    </script>
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="jquery.flowchart.js"></script>
+  </body>
+</html>
+>>>>>>> master
