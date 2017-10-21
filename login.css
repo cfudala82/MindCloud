@@ -8,10 +8,10 @@ button {
     background-color: #ff0000;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 30%;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
 }
 
 button:hover {
@@ -20,6 +20,14 @@ button:hover {
 
 
 img {
-  max-width:60%;
-  max-height:60%;
+  width: auto;
+ height: auto;
+}
+
+h1{
+
+
+    text-align: center;
+    background-color: blue;
+    color:yellow;
 }
