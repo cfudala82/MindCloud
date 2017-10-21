@@ -22,6 +22,8 @@ class Person (BaseModel):
   name = peewee.CharField(max_length=60)
   token = JSONField()
   user_id = peewee.CharField(max_length=60)
+  user_email = peewee.CharField(max_length=60)
+  # region = peewee.CharField(max_length=60)
 
   def __str__ (self):
     return self.name

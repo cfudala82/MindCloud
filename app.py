@@ -43,7 +43,7 @@ class TemplateHandler(tornado.web.RequestHandler):
     user_id = self.get_secure_cookie("user-id")
     # print('Coookie', user_id)
     if user_id:
-        print(user_id.decode())
+        # print('Current user_id:', user_id.decode())
         user = Person.select().where(Person.user_id == user_id.decode())[0]
         return user
 
@@ -69,6 +69,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
 
             person, created = Person.get_or_create(
                 user_id=user['id'],
+                user_email=user['email'],
                 defaults={'name': user['name'], 'token': access}
             )
             if not created:
@@ -105,11 +106,7 @@ class AddCalendarHandler (TemplateHandler):
         #     else:
         #         credentials = tools.run(flow, store)
 
-        """Shows basic usage of the Google Calendar API.
 
-        Creates a Google Calendar API service object and outputs a list of the next
-        10 events on the user's calendar.
-        """
         event = self.get_body_argument('event')
         deadline = self.get_body_argument('deadline')
         http = credentials.authorize(httplib2.Http())
@@ -118,13 +115,15 @@ class AddCalendarHandler (TemplateHandler):
         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
         created_event = service.events().quickAdd(
             calendarId='primary',  text=event + deadline).execute()
-            # created_event = service.events().quickAdd(
-            #     calendarId='primary',  text='Deploy Mind Cloud October 21st 9am-6pm').execute()
         print(created_event['id'])
-        #         calendarId='primary',  text=event + deadline).execute()
-        #     print(created_event['id'])
-        # main(self.get_body_argument('event'))
-# here's for inserting events into google calendar
+
+class RemindersHandler(TemplateHandler):
+  @tornado.web.authenticated
+  def get(self):
+    email = self.current_user.user_email
+    print(email)
+    self.set_header("Content-Type", 'html')
+    self.render_template('Reminders.html', {'email': email})
 
 class MainHandler(TemplateHandler):
   def get(self):
@@ -139,7 +138,6 @@ class PageHandler(TemplateHandler):
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
     self.render_template(page, {})
-    # self.render_template(name, {'path': self.request.path})
 
 SETTINGS = {
     "google_oauth": {
@@ -159,8 +157,8 @@ def make_app():
     (r"/", MainHandler),
     (r"/auth", GoogleOAuth2LoginHandler),
     (r"/cal", AddCalendarHandler),
+    (r"/Reminders", RemindersHandler),
     (r"/page/(.*)", PageHandler),
-    # (r"/event", EventHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
   ], **SETTINGS)
 
