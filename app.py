@@ -81,6 +81,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
             print('Cookie set!')
             self.redirect('page/profile.html', {})
 
+
         else:
             yield self.authorize_redirect(
                 redirect_uri='http://localhost:mind-cloud.logancodes.com/auth',
