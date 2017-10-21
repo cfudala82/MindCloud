@@ -81,6 +81,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
             print('Cookie set!')
             self.redirect('page/profile.html', {})
 
+# I updated the redirect_uri for our deployment
 
         else:
             yield self.authorize_redirect(
