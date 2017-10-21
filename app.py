@@ -35,7 +35,7 @@ ENV = Environment(
   autoescape=select_autoescape(['html', 'xml'])
 )
 
-PORT = int(os.environ.get('PORT', '5000'))
+# PORT = int(os.environ.get('PORT', '5000'))
 
 
 class TemplateHandler(tornado.web.RequestHandler):
@@ -95,7 +95,7 @@ class AddCalendarHandler (TemplateHandler):
     @tornado.web.authenticated
     def post(self):
         SCOPES = 'https://www.googleapis.com/auth/calendar'
-        APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+        APPLICATION_NAME = 'Mind Cloud'
         print(self.current_user.token)
         credentials = AccessTokenCredentials(self.current_user.token['access_token'], 'my agent/1.0')
 
@@ -168,5 +168,5 @@ def make_app():
 if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
   app = make_app()
-  app.listen(PORT, print("Now serving up your app on PORT: " + str(PORT)))
+  # app.listen(PORT, print("Now serving up your app on PORT: " + str(PORT)))
   tornado.ioloop.IOLoop.current().start()
