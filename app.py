@@ -57,8 +57,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                redirect_uri='http://mind-cloud.logancodes.com/auth',
-                # redirect_uri='http://localhost:5000/auth',
+                # redirect_uri='http://mind-cloud.logancodes.com/auth',
+                redirect_uri='http://localhost:5000/auth',
 
                 code=self.get_argument('code'))
             # print(access)
@@ -87,8 +87,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
 
         else:
             yield self.authorize_redirect(
-                redirect_uri='http://mind-cloud.logancodes.com/auth',
-                # redirect_uri='http://localhost:5000/auth',
+                # redirect_uri='http://mind-cloud.logancodes.com/auth',
+                redirect_uri='http://localhost:5000/auth',
 
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
