@@ -167,12 +167,29 @@ SETTINGS = {
     "login_url": "/auth"
 }
 
+class AchievementsHandler(TemplateHandler):
+  @tornado.web.authenticated
+  def get (self):
+    # finds a list of achievments
+    achievments = (Goals
+                   .select(Goals.achievement).limit(3)
+                   .join(Person)
+                   .where(self.current_user.id==Goals.person_id)
+                   .order_by(+Goals.reminder))
+    # gets the users name
+    name = self.current_user.name
+    # send a data for name and achievements to the web page
+    self.render_template('achievements.html', {'name': name, 'achievments': achievments})
+
+
+
 
 def make_app():
   return tornado.web.Application([
     (r"/", MainHandler),
     (r"/auth", GoogleOAuth2LoginHandler),
     (r"/Reminders", RemindersHandler),
+    (r"/page/achievements.html", AchievementsHandler),
     (r"/goals", GoalsHandler),
     (r"/page/(.*)", PageHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
