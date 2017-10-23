@@ -1,0 +1,155 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(212, 206, 192);
+}
+
+nav {
+  text-align: center;
+  background-color: orange;
+  margin-bottom: 2rem;
+}
+
+h1, h2 {
+  display: block;
+  margin: 0 auto;
+  color: #fafdff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.05rem;
+}
+
+button, input {
+  display: block;
+  margin: 0 auto;
+  width: 13rem;
+  text-align: center;
+  padding: .5rem;
+  border-radius: .5rem .5rem .5rem .5rem;
+  border-color: lightgray;
+  border-style: solid;
+}
+
+button {
+  background-color: orange;
+  color: #fafdff;
+  border: none;
+}
+
+input {
+  margin-top: .35rem;
+  margin-bottom: .35rem;
+}
+
+img {
+  width: 105%;
+  height: 105%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10%;
+}
+
+ul {
+  margin-top: 1rem;
+  list-style: none;
+  color: #fafdff;
+}
+
+#modal {
+  background-color: white;
+  font-weight: bold;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  font-size: 1.2em;
+  text-align: center;
+  position: fixed;
+  border-style: solid;
+  border-radius: 25px;
+  border-color: black;
+  width: 10rem;
+  height: 6rem;
+  left: calc(50% - 5rem);
+  top: calc(50% - 3rem);
+  box-shadow: 10px 10px 5px #888888;
+  z-index: 2;
+  display: none;
+}
+
+#set_goal, #view_goals {
+  margin-top: 2rem;
+}
+
+.container {
+  margin-right: 2.5rem;
+}
+
+.hidden, .hidden_list {
+  display: none;
+}
+
+.navbar-toggler {
+  border-color: none;
+  border-style: none;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fafdff;
+}
+
+@media screen and (min-width: 375px) and (max-width: 414px) {
+  h2 {
+    font-size: 1.05rem;
+  }
+
+  img {
+    width: 80%;
+    height: 80%;
+    margin-top: 5%;
+    margin-bottom: 0;
+  }
+
+  #view {
+    margin-top: -15%;
+  }
+
+  ul {
+    margin-left: 23%;
+  }
+}
+
+@media screen and (min-width: 415px) and (max-width: 667px) {
+  h2 {
+    font-size: 1.05rem;
+  }
+
+  img {
+    width: 135%;
+    height: 125%;
+    margin-bottom: 0;
+    margin-top: 5%;
+    margin-left: 40%;
+  }
+
+  ul {
+    margin-left: 23%;
+  }
+
+  #set_goal, #view_goals {
+    width: 10rem;
+    margin-left: 15%;
+  }
+
+  #view_goals {
+     margin-top: 0%;
+   }
+
+  .container {
+    margin-left: 5%;
+  }
+}
+
+/*make responsive for ipad landscape and iphone 6splus landscape*/
