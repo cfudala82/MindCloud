@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Goals</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="/static/css/goals.css" rel="stylesheet" type="text/css"></link>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Profile<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="not_hiking nav-item">
+            <a class="nav-link" href="/page/mapPage.html">Mind Maps</a>
+          </li>
+          <li class="not_gaming nav-item">
+            <a class="nav-link" href="/Reminders">Reminders</a>
+          </li>
+          <li class="not_travel nav-item">
+            <a class="nav-link" href="/page/achievements.html">Achievements</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </head>
+  <body>
+    <h1>Hello {{name}}!</h1>
+    <h2>Welcome to Your Mind Cloud!</h2>
+
+    <div class="container">
+      <div class="row">
+        <div id="set_goal" class="col-xs-12 col-sm-4 col-md-4">
+          <form action="/goals" method="post">
+            <!-- <div id="deadline" class="col-12"> -->
+            <button id="create_goal">Set New Goal</button>
+            <div id="hide" class="hidden">
+              <input placeholder="What's the Goal?" required name="event">
+              <input type='datetime' placeholder="What's the Deadline?" required name="deadline">
+              <button id="link" type="submit">Link to Your Calendar</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <img src='/static/img/pic3.png'>
+        </div>
+        <div id="view_goals" class="col-xs-12 col-sm-4 col-md-4">
+            <button id="view" type="submit">View Current Goals</button>
+            <ul class="hidden_list">
+              {% for goal in goals %}
+              <li>
+                  {{ goal.title }}
+              </li>
+              {% endfor %}
+            </ul>
+        </div>
+      </div>
+    </div>
+    <div id="modal">
+      <div class="content">
+        <p>
+          You got this!
+        </p>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script>
+      $('#create_goal').click(function(){
+        $('#hide').toggleClass('hidden');
+      });
+      $('#link').click(function(){
+        $('#modal').show();
+      });
+      $('#view_goals').click(function(){
+        $('ul').toggleClass('hidden_list')
+      });
+    </script>
+  </body>
+</html>
