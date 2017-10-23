@@ -35,7 +35,7 @@ ENV = Environment(
   autoescape=select_autoescape(['html', 'xml'])
 )
 
-# PORT = int(os.environ.get('PORT', '5000'))
+PORT = int(os.environ.get('PORT', '5000'))
 
 
 class TemplateHandler(tornado.web.RequestHandler):
@@ -57,8 +57,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                redirect_uri='http://mind-cloud.logancodes.com/auth',
-                # redirect_uri='http://localhost:5000/auth',
+                #redirect_uri='http://mind-cloud.logancodes.com/auth',
+                 redirect_uri='http://localhost:5000/auth',
 
                 code=self.get_argument('code'))
             # print(access)
@@ -87,8 +87,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
 
         else:
             yield self.authorize_redirect(
-                redirect_uri='http://mind-cloud.logancodes.com/auth',
-                # redirect_uri='http://localhost:5000/auth',
+                #redirect_uri='http://mind-cloud.logancodes.com/auth',
+                 redirect_uri='http://localhost:5000/auth',
 
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
@@ -157,6 +157,22 @@ SETTINGS = {
     "login_url": "/auth"
 }
 
+class AchievementsHandler(TemplateHandler):
+  @tornado.web.authenticated
+  def get (self):
+    # finds a list of achievments
+    achievments = (Goals
+                   .select(Goals.achievement).limit(3)
+                   .join(Person)
+                   .where(self.current_user.id==Goals.person_id)
+                   .order_by(+Goals.reminder))
+    # gets the users name
+    name = self.current_user.name
+    # send a data for name and achievements to the web page
+    self.render_template('achievements.html', {'name': name, 'achievments': achievments})
+
+
+
 
 def make_app():
   return tornado.web.Application([
@@ -164,6 +180,7 @@ def make_app():
     (r"/auth", GoogleOAuth2LoginHandler),
     (r"/cal", AddCalendarHandler),
     (r"/Reminders", RemindersHandler),
+    (r"/page/achievements.html", AchievementsHandler),
     (r"/page/(.*)", PageHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
   ], **SETTINGS)
@@ -172,5 +189,5 @@ def make_app():
 if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
   app = make_app()
-  # app.listen(PORT, print("Now serving up your app on PORT: " + str(PORT)))
+  app.listen(PORT, print("Now serving up your app on PORT: " + str(PORT)))
   tornado.ioloop.IOLoop.current().start()
