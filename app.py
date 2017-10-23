@@ -35,7 +35,7 @@ ENV = Environment(
   autoescape=select_autoescape(['html', 'xml'])
 )
 
-# PORT = int(os.environ.get('PORT', '5000'))
+PORT = int(os.environ.get('PORT', '5000'))
 
 
 class TemplateHandler(tornado.web.RequestHandler):
