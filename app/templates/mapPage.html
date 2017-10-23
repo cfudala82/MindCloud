@@ -18,14 +18,12 @@
 <script type="text/javascript">
     // create an array with nodes
     var nodes = new vis.DataSet([
-        {id: 1, label: 'Brain Logo, My Goals'},
+        {id: 1, label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
         {id: 2, label: 'Save Money'},
         {id: 3, label: 'Be Happy'},
         {id: 4, label: 'Cook Dinner'},
         {id: 5, label: "Don't buy food at gas stations"}
     ]);
-
-    // , fixed: {x: true, y: true}
 
     // create an array with edges
     var edges = new vis.DataSet([
