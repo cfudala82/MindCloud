@@ -57,8 +57,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                #redirect_uri='http://mind-cloud.logancodes.com/auth',
-                 redirect_uri='http://localhost:5000/auth',
+                # redirect_uri='http://mind-cloud.logancodes.com/auth',
+                redirect_uri='http://localhost:5000/auth',
 
                 code=self.get_argument('code'))
             # print(access)
@@ -87,41 +87,13 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
 
         else:
             yield self.authorize_redirect(
-                #redirect_uri='http://mind-cloud.logancodes.com/auth',
-                 redirect_uri='http://localhost:5000/auth',
+                # redirect_uri='http://mind-cloud.logancodes.com/auth',
+                redirect_uri='http://localhost:5000/auth',
 
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
                 response_type='code',
                 )
-
-class AddCalendarHandler (TemplateHandler):
-    @tornado.web.authenticated
-    def post(self):
-        SCOPES = 'https://www.googleapis.com/auth/calendar'
-        APPLICATION_NAME = 'Mind Cloud'
-        print(self.current_user.token)
-        credentials = AccessTokenCredentials(self.current_user.token['access_token'], 'my agent/1.0')
-
-        print(credentials.invalid)
-        # if not credentials or credentials.invalid:
-        #     flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        #     flow.user_agent = APPLICATION_NAME
-        #     if flags:
-        #         credentials = tools.run_flow(flow, store, flags)
-        #     else:
-        #         credentials = tools.run(flow, store)
-
-
-        event = self.get_body_argument('event')
-        deadline = self.get_body_argument('deadline')
-        http = credentials.authorize(httplib2.Http())
-        service = discovery.build('calendar', 'v3', http=http)
-
-        now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-        created_event = service.events().quickAdd(
-            calendarId='primary',  text=event + deadline).execute()
-        print(created_event['id'])
 
 class RemindersHandler(TemplateHandler):
   @tornado.web.authenticated
@@ -130,6 +102,44 @@ class RemindersHandler(TemplateHandler):
     print(email)
     self.set_header("Content-Type", 'html')
     self.render_template('Reminders.html', {'email': email})
+
+class GoalsHandler(TemplateHandler):
+  @tornado.web.authenticated
+
+  def get(self):
+    name = self.current_user.name
+    # user_id = int(self.current_user.user_id)
+    user_id = int(self.current_user.brain_id)
+    goals = Goals.select().where(Goals.person_id == user_id)
+    print(goals)
+    print('User name: ', name, ',', 'User id: ', user_id)
+    self.set_header("Content-Type", 'html')
+    self.render_template('goals.html', {'name': name, 'goals': goals})
+  def post(self):
+      name = self.current_user.name
+      brain_id = self.current_user.brain_id
+      SCOPES = 'https://www.googleapis.com/auth/calendar'
+      APPLICATION_NAME = 'Mind Cloud'
+      print(self.current_user.token)
+      credentials = AccessTokenCredentials(self.current_user.token['access_token'], 'my agent/1.0')
+      print(credentials.invalid)
+      user_id = self.get_secure_cookie("user-id")
+      user = Person.select().where(Person.user_id == user_id.decode())[0]
+      event = self.get_body_argument('event')
+      print(user_id)
+      goal = Goals.create(
+          person_id=brain_id,
+          title=event
+        )
+      deadline = self.get_body_argument('deadline')
+      http = credentials.authorize(httplib2.Http())
+      service = discovery.build('calendar', 'v3', http=http)
+
+      now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+      created_event = service.events().quickAdd(
+          calendarId='primary',  text=event + ' ' + deadline).execute()
+      print(created_event['id'])
+      self.render_template('goals.html', {'name': name, 'goal': goal})
 
 class MainHandler(TemplateHandler):
   def get(self):
@@ -178,9 +188,9 @@ def make_app():
   return tornado.web.Application([
     (r"/", MainHandler),
     (r"/auth", GoogleOAuth2LoginHandler),
-    (r"/cal", AddCalendarHandler),
     (r"/Reminders", RemindersHandler),
     (r"/page/achievements.html", AchievementsHandler),
+    (r"/goals", GoalsHandler),
     (r"/page/(.*)", PageHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
   ], **SETTINGS)
