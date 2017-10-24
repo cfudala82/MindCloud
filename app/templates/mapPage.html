@@ -1,41 +1,55 @@
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Mind Cloud</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="../../static/css/mapPage.css">
     <script type="text/javascript" src="../../static/vis-4.21.0/dist/vis.js"></script>
     <link href="../../static/vis-4.21.0/dist/vis.css" rel="stylesheet" type="text/css" />
-
-    <style type="text/css">
-        #mynetwork {
-            width: 100%;
-            height: auto;
-            border: 2px solid black;
-            background-color: rgb(187, 223, 235);
-        }
-    </style>
-</head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
 <body>
-  <form action="/page/mapPage.html" method="post">
-  Goal: <textarea name="comment"></textarea> <br>
-  <input type="submit" value="Submit">
-</form>
-<div id="mynetwork"></div>
+  <div id=logo>
+    <img id=brain_logo src="../../static/imgs/logo_brain.png" alt="Brain Logo"
+    width:"40" height:"40">
+  </div>
+  <h1>Mind Map</h1>
+  <div id="mynetwork"></div>
 
-<script type="text/javascript">
+  <div class="form-group">
+    <label for="goal">Set a Goal:</label>
+    <input type="text" class="form-control" id="goal">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Set a Date:</label>
+    <input type="text" class="form-control" id="pwd">
+    <button type="button" class="btn btn-success btn-lg">Submit</button>
+  </div>
+
+  <script type="text/javascript">
     // create an array with nodes
-    var nodes = new vis.DataSet([
-        {id: 1, label: 'kjsnja', fixed: {x: true, y: true}},
-        {id: 2, label: 'Save Money'},
-        {id: 3, label: 'Be Happy'},
-        {id: 4, label: 'Cook Dinner'},
-        {id: 5, label: "Don't buy food at gas stations"}
-    ]);
+
+    var nodes = [
+        {id: 'brain_logo', label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
+        {id: 'save_money', label: 'Save Money'},
+        {id: 'be_happy', label: 'Be Happy'},
+        {id: 'cook_dinner', label: 'Cook Dinner'},
+        {id: 'don_t_buy_food_at_gas_stations', label: "Don't buy food at gas stations"},
+        {id: 'buy_car', label: 'Buy a Aston Martin!!!'}
+    ];
+
+
+    // new vis.DataSet() has been eliminated from nodes and edges.
 
     // create an array with edges
-    var edges = new vis.DataSet([
-        {from: 1, to: 3},
-        {from: 1, to: 2},
-        {from: 2, to: 4},
-        {from: 2, to: 5}
-    ]);
+    var edges = [
+        {from: 'brain_logo', to: 'be_happy'},
+        {from: 'brain_logo', to: 'save_money'},
+        {from: 'save_money', to: 'cook_dinner'},
+        {from: 'save_money', to: 'don_t_buy_food_at_gas_stations'},
+        {from: 'brain_logo', to: 'buy_car'}
+    ];
 
     // create a network
     var container = document.getElementById('mynetwork');
@@ -46,40 +60,101 @@
         edges: edges
     };
     var options = {
+
+      "nodes": {
+  "color": {
+    "border": "rgba(233,41,31,1)",
+    "background": "rgba(252,176,96,1)",
+    "highlight": {
+      "border": "rgba(233,35,36,1)",
+      "background": "rgba(255,50,193,1)"
+    },
+    "hover": {
+      "background": "rgba(255,243,249,1)"
+    }
+  },
+  "font": {
+    "color": "white",
+    "face": "tahoma",
+    "background": "rgba(233,153,73,0)",
+
+    "strokeColor": "rgba(233,219,220,0)"
+  },
+"edges": {
+  "arrows": {
+    "middle": {
+      "enabled": true,
+      "scaleFactor": 0.7
+    }
+  },
+  "shadow": {
+    "enabled": true,
+    "size": 16
+  },
+  "smooth": {
+    "forceDirection": "none"
+  }
+}
+
+
+      },
+
       configure: {
-        enabled: true,
+        enabled: false,
         filter: 'nodes,edges',
         container: undefined,
         showButton: true
-      }
+      },
 
-      // interaction:{
-      //   dragNodes:true,
-      //   dragView: true,
-      //   hideEdgesOnDrag: false,
-      //   hideNodesOnDrag: false,
-      //   hover: false,
-      //   hoverConnectedEdges: true,
-      //   keyboard: {
-      //     enabled: false,
-      //     speed: {x: 10, y: 10, zoom: 0.02},
-      //     bindToWindow: true
-      //   },
-      //   multiselect: false,
-      //   navigationButtons: false,
-      //   selectable: true,
-      //   selectConnectedEdges: true,
-      //   tooltipDelay: 300,
-      //   zoomView: true
-      // }
+      interaction:{
+        dragNodes:true,
+        dragView: true,
+        hideEdgesOnDrag: false,
+        hideNodesOnDrag: false,
+        hover: false,
+        hoverConnectedEdges: true,
+        keyboard: {
+          enabled: false,
+          speed: {x: 10, y: 10, zoom: 0.02},
+          bindToWindow: true
+        },
+        multiselect: false,
+        navigationButtons: true,
+        selectable: true,
+        selectConnectedEdges: true,
+        tooltipDelay: 300,
+        zoomView: true
+      },
+
 
     };
 
+    var locales = {
+      en: {
+        edit: 'Edit',
+        del: 'Delete selected',
+        back: 'Back',
+        addNode: 'Add Node',
+        addEdge: 'Add Edge',
+        editNode: 'Edit Node',
+        editEdge: 'Edit Edge',
+        addDescription: 'Click in an empty space to place a new node.',
+        edgeDescription: 'Click on a node and drag the edge to another node to connect them.',
+        editEdgeDescription: 'Click on the control points and drag them to a node to connect to it.',
+        createEdgeError: 'Cannot link edges to a cluster.',
+        deleteClusterError: 'Clusters cannot be deleted.',
+        editClusterError: 'Clusters cannot be edited.'
+      }
+    }
     // network.setOptions(options);
 
     // initialize your network!
     var network = new vis.Network(container, data, options);
     // network.setOptions(centralOptions);
-</script>
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/
+  GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>
