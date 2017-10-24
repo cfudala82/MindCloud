@@ -87,30 +87,40 @@
 
           "strokeColor": "rgba(233,219,220,0)"
         },
+      },
       "edges": {
         "arrows": {
-          "from": {
+          "to": {
+            "enabled": false,
+            "scaleFactor": 0.35,
+            "type": 'arrow'
+          },
+          "middle": {
             "enabled": true,
-            "scalefactor": 0.35,
+            "scaleFactor": 0.45,
+            "type": 'arrow'
+          },
+          "from": {
+            "enabled": false,
+            "scaleFactor": 0.35,
             "type": 'arrow'
           }
         },
         "arrowStrikethrough": true,
         "shadow": {
           "enabled": true,
-          "color": "light gray",
+          "color": "gray",
           "y": 0
         },
         "smooth": {
           "forceDirection": "none"
         }
-      }
-
-
       },
 
+
+
       configure: {
-        enabled: true,
+        enabled: false,
         filter: 'nodes,edges',
         container: undefined,
         showButton: true

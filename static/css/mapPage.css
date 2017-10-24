@@ -1,8 +1,8 @@
+#container {
+  /*background-color: #fad955;*/
+}
 #logo {
   margin-left: 5%;
-  /*display: block;
-  margin: 0 auto;
-  box-sizing: content-box;*/
 }
 img{
   max-width: 5%;
@@ -11,7 +11,6 @@ img{
 header {
   display: block;
   margin: 0 auto;
-  /*box-sizing: content-box;*/
   width: 90%;
   height: 5%;
   padding-left: 1rem;
