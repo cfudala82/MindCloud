@@ -99,7 +99,8 @@
             <ul class="hidden_list">
               {% for goal in goals %}
               <li>
-                  {{ goal.title }}
+                  <a href="/achieved/{{ goal.id }}">{{ goal.title }}</a>
+
               </li>
               {% endfor %}
             </ul>
@@ -127,6 +128,9 @@
       $('#view_goals').click(function(){
         $('ul').toggleClass('hidden_list')
       });
+      // $('li').click(function () {
+      //   $(this).remove();
+      // });
     </script>
   </body>
 </html>
