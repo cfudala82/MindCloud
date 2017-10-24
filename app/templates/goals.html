@@ -1,37 +1,13 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Goals</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href="/static/css/goals.css" rel="stylesheet" type="text/css"></link>
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/page/profile.html">Profile<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="not_hiking nav-item">
-            <a class="nav-link" href="/page/mapPage.html">Mind Maps</a>
-          </li>
-          <li class="not_gaming nav-item">
-            <a class="nav-link" href="/Reminders">Reminders</a>
-          </li>
-          <li class="not_travel nav-item">
-            <a class="nav-link" href="/page/achievements.html">Achievements</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </head>
-  <body>
+{% extends "base.html" %}
+
+{% block title %} Goals {% endblock %}
+
+{% block extracss %}
+<link href="/static/css/goals.css" rel="stylesheet" type="text/css"></link>
+{% endblock %}
+
+{% block content %}
     <h1>Hello {{name}}!</h1>
     <h2>Welcome to Your Mind Cloud!</h2>
 
@@ -84,5 +60,4 @@
         $('ul').toggleClass('hidden_list')
       });
     </script>
-  </body>
-</html>
+{% endblock %}
