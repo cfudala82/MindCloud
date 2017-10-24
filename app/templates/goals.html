@@ -11,15 +11,35 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link href="/static/css/goals.css" rel="stylesheet" type="text/css"></link>
-    <nav class="navbar navbar-expand-lg navbar-light">
+
+    <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+        <div>
+          <ul class="navbar-nav ml-auto">
+            <li class="not_hiking nav-item">
+              <a class="nav-link" href="/page/mapPage.html">Mind Maps</a>
+            </li>
+            <li class="not_gaming nav-item">
+              <a class="nav-link" href="/Reminders">Reminders</a>
+            </li>
+            <li class="not_travel nav-item">
+              <a class="nav-link" href="/page/achievements.html">Achievements</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <nav class="nav navbar navbar-light">
+        <button class="nav navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="nav2 navbar-toggler-icon"></span>
+        </button>
+      </nav>
+    </div>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/page/profile.html">Profile<span class="sr-only">(current)</span></a>
-          </li>
           <li class="not_hiking nav-item">
             <a class="nav-link" href="/page/mapPage.html">Mind Maps</a>
           </li>
@@ -31,7 +51,7 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
   </head>
   <body>
     <h1>Hello {{name}}!</h1>
