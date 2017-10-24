@@ -58,7 +58,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                redirect_uri=BASE_URL + '/auth',
+                # redirect_uri=BASE_URL + '/auth',
+                redirect_uri='http://mindcloud.logancodes.com/auth',
 
                 code=self.get_argument('code'))
             # print(access)
