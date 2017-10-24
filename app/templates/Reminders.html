@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-      <link href="/static/css/reminders.css" rel="stylesheet" type="text/css"></link>
-      <title>MindCloud</title>
-      <a href="/page/profile.html"><img src="/static/imgs/logo_left_right_brain.jpg" alt="brain pic"></img></a>
+
+{% extends "base.html" %}
+
+{% block title %} Mind Cloud {% endblock %}
+
+{% block extracss %}
+<link href="/static/css/reminders.css" rel="stylesheet" type="text/css"></link>
+{% endblock %}
+
+{% block content %}
+
+
+      <a href="/page/profile.html"><img src="/static/imgs/logo_brain.png" alt="brain pic"></img></a>
       <h1>Reminders</h1>
   <body>
 
@@ -15,3 +19,4 @@
         <iframe method='get' class='calendar' src="https://calendar.google.com/calendar/embed?src={{ email }}" style="border: 0" width="600" height="450" frameborder="0" scrolling="no"></iframe>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </body>
+{% endblock %}
