@@ -1,3 +1,22 @@
+.Center{
+    width:200px;
+    height:200px;
+
+    margin:auto;
+    padding:0%;
+    position: relative;
+    top: 0; left: 0; bottom: 0; right: 0;
+    border-radius:5%;
+}
+.btn-bot{
+    position: Center;
+    bottom: 137px;
+
+}
+
+
+
+
 html, body {
   height: 100%;
   width: 100%;

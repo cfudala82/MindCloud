@@ -5,29 +5,92 @@ form {
 
 
 button {
-    background-color: #ff0000;
-    color: white;
-    padding: 14px 20px;
-    margin: 30%;
-    border: none;
-    cursor: pointer;
-    width: 50%;
+        background-color: transparent;
+        /* padding: 14px 20px; */
+        margin: 30%;
+        background-image: url(/static/imgs/clouds.png);
+        border: none;
+        cursor: pointer;
+        width: 20rem;
+        height: 13.3rem;
+        /* border: 0; */
+        background-size: 100%;
+        background-size: px auto;
+        color:orange;
 }
 
 button:hover {
     opacity: 0.8;
 }
 
+/*img{
+text-align: center;
+width: 25rem;
+height: 25rem;
 
-img {
-  width: auto;
- height: auto;
+
+}*/
+
+
+element.style {
+    margin-left: 25%;
+    width: 40rem;
+    height: 30rem;
 }
+
+
+element.style {
+    position: absolute;
+    margin-left: 35%;
+    margin-top: 5rem;
+}
+
+
+.under
+   {
+       position:absolute;
+       left:366px;
+       top:210px;
+       z-index:2;
+   }
+   .over
+   {
+        height: 35rem;
+        width: 40rem;
+
+       color: transparent;
+       position:absolute;
+       left:260px;
+       top:55px;
+       z-index:-1;
+   }
+
+   .arrow{
+
+       position:absolute;
+       left:511px;
+       top:160px;
+       z-index:3;
+       height: 65px;
+       width:65px;
+   }
+
+   h2{
+       position:absolute;
+       text-align: center;
+       left:511px;
+       top:81px;
+       z-index:4;
+       height: 65px;
+       width:65px;
+   }
+
+
+
 
 h1{
 
-
     text-align: center;
-    background-color: blue;
-    color:yellow;
+    background-color:rgb(255, 178, 0);
+    color:white;
 }
