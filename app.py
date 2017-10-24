@@ -181,6 +181,21 @@ class AchievementsHandler(TemplateHandler):
     # send a data for name and achievements to the web page
     self.render_template('achievements.html', {'name': name, 'achievments': achievments})
 
+class MapPageHandler(TemplateHandler):
+  @tornado.web.authenticated
+  def get (self):
+
+    self.render_template('mapPage.html', {})
+
+    #{'goal': goal})
+
+    #(r"/page/mapPage.html", MapPageHandler),
+  def post (self):
+    #comment = self.get_body_argument('comment')
+    #print(comment)
+    self.render_template('mapPage.html', {})
+
+
 
 
 
@@ -190,6 +205,7 @@ def make_app():
     (r"/auth", GoogleOAuth2LoginHandler),
     (r"/Reminders", RemindersHandler),
     (r"/page/achievements.html", AchievementsHandler),
+    (r"/page/mapPage.html", MapPageHandler),
     (r"/goals", GoalsHandler),
     (r"/page/(.*)", PageHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
