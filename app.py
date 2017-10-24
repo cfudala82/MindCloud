@@ -36,6 +36,7 @@ ENV = Environment(
 )
 
 PORT = int(os.environ.get('PORT', '5000'))
+BASE_URL = os.environ.get('BASE_URL', 'http://localhost:5000')
 
 
 class TemplateHandler(tornado.web.RequestHandler):
@@ -57,8 +58,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                # redirect_uri='http://mind-cloud.logancodes.com/auth',
-                redirect_uri='http://localhost:5000/auth',
+                redirect_uri=BASE_URL + '/auth',
 
                 code=self.get_argument('code'))
             # print(access)
@@ -87,8 +87,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
 
         else:
             yield self.authorize_redirect(
-                # redirect_uri='http://mind-cloud.logancodes.com/auth',
-                redirect_uri='http://localhost:5000/auth',
+                redirect_uri='http://mindcloud.logancodes.com/auth',
 
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
