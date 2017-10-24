@@ -14,46 +14,34 @@
 
 {% block content %}
 <body>
+  <div id="container">
   <div id=logo>
-    <img id=brain_logo src="../../static/imgs/logo_brain.png" alt="Brain Logo"
-    width:"40" height:"40">
+    <a href="/page/profile.html"><img id=brain_logo src="../../static/imgs/logo_brain.png" alt="Brain Logo"
+    width:"40" height:"40"></img></a>
   </div>
-  <h1>Mind Map</h1>
+
+  <header>
+    <h1>Mind Cloud</h1>
+  </header>
+
   <div id="mynetwork"></div>
 
   <div class="form-group">
-    <label for="goal">Set a Goal:</label>
-    <input type="text" class="form-control" id="goal">
+    <label for="goal"></label>
+    <input id="node_label_input" type='text' placeholder='Add New Branch'></input>
+    <button id='set' type="button" class="btn btn-success btn-lg">Submit</button>
   </div>
-  <div class="form-group">
-    <label for="pwd">Set a Date:</label>
-    <input type="text" class="form-control" id="pwd">
-    <button type="button" class="btn btn-success btn-lg">Submit</button>
   </div>
 
   <script type="text/javascript">
+
     // create an array with nodes
 
-    var nodes = [
-        {id: 'brain_logo', label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
-        {id: 'save_money', label: 'Save Money'},
-        {id: 'be_happy', label: 'Be Happy'},
-        {id: 'cook_dinner', label: 'Cook Dinner'},
-        {id: 'don_t_buy_food_at_gas_stations', label: "Don't buy food at gas stations"},
-        {id: 'buy_car', label: 'Buy a Aston Martin!!!'}
-    ];
+    var nodes = new vis.DataSet([
+      {id: 1, label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
+  ]);
 
-
-    // new vis.DataSet() has been eliminated from nodes and edges.
-
-    // create an array with edges
-    var edges = [
-        {from: 'brain_logo', to: 'be_happy'},
-        {from: 'brain_logo', to: 'save_money'},
-        {from: 'save_money', to: 'cook_dinner'},
-        {from: 'save_money', to: 'don_t_buy_food_at_gas_stations'},
-        {from: 'brain_logo', to: 'buy_car'}
-    ];
+  var edges = new vis.DataSet([]);
 
     // create a network
     var container = document.getElementById('mynetwork');
@@ -66,45 +54,48 @@
     var options = {
 
       "nodes": {
-  "color": {
-    "border": "rgba(233,41,31,1)",
-    "background": "rgba(252,176,96,1)",
-    "highlight": {
-      "border": "rgba(233,35,36,1)",
-      "background": "rgba(255,50,193,1)"
-    },
-    "hover": {
-      "background": "rgba(255,243,249,1)"
-    }
-  },
-  "font": {
-    "color": "white",
-    "face": "tahoma",
-    "background": "rgba(233,153,73,0)",
+        "color": {
+          "border": "red",
+          "background": "orange",
+          "highlight": {
+            "border": "black",
+            "background": "magenta"
+          },
+          "hover": {
+            "background": "rgba(255,243,249,1)"
+          }
+        },
+        "font": {
+          "color": "white",
+          "face": "tahoma",
+          "background": "rgba(233,153,73,0)",
 
-    "strokeColor": "rgba(233,219,220,0)"
-  },
-"edges": {
-  "arrows": {
-    "middle": {
-      "enabled": true,
-      "scaleFactor": 0.7
-    }
-  },
-  "shadow": {
-    "enabled": true,
-    "size": 16
-  },
-  "smooth": {
-    "forceDirection": "none"
-  }
-}
+          "strokeColor": "rgba(233,219,220,0)"
+        },
+      "edges": {
+        "arrows": {
+          "from": {
+            "enabled": true,
+            "scalefactor": 0.35,
+            "type": 'arrow'
+          }
+        },
+        "arrowStrikethrough": true,
+        "shadow": {
+          "enabled": true,
+          "color": "light gray",
+          "y": 0
+        },
+        "smooth": {
+          "forceDirection": "none"
+        }
+      }
 
 
       },
 
       configure: {
-        enabled: false,
+        enabled: true,
         filter: 'nodes,edges',
         container: undefined,
         showButton: true
@@ -150,11 +141,23 @@
         editClusterError: 'Clusters cannot be edited.'
       }
     }
+
     // network.setOptions(options);
 
     // initialize your network!
     var network = new vis.Network(container, data, options);
     // network.setOptions(centralOptions);
+
+    $(document).ready(function(){
+    i = 2
+    $('#set').click(function(){
+      nodes.add([newnode = {id: i, label: $('#node_label_input').val()}])
+      edges.add([newedge = {from: 1, to: i}]);
+      network.redraw()
+      i ++
+    })
+  });
+
   </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/
   GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

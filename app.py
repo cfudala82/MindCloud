@@ -36,7 +36,7 @@ ENV = Environment(
 )
 
 PORT = int(os.environ.get('PORT', '5000'))
-BASE_URL = os.environ.get('BASE_URL', 'http://localhost:5000')
+# BASE_URL = os.environ.get('BASE_URL', 'http://mindcloud.logancodes.com')
 
 
 class TemplateHandler(tornado.web.RequestHandler):
@@ -59,7 +59,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
                 # redirect_uri=BASE_URL + '/auth',
-                redirect_uri='http://mindcloud.logancodes.com/auth',
+                # redirect_uri='http://mindcloud.logancodes.com/auth',
+                redirect_uri='http://localhost:5000/auth',
 
                 code=self.get_argument('code'))
             # print(access)
@@ -82,13 +83,14 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
             print("here is the user info:", user)
             self.set_secure_cookie("user-id", user['id'])
             print('Cookie set!')
-            self.redirect('page/profile.html', {})
+            self.redirect('goals', {})
 
 # I updated the redirect_uri for our deployment
 
         else:
             yield self.authorize_redirect(
-                redirect_uri='http://mindcloud.logancodes.com/auth',
+                # redirect_uri='http://mindcloud.logancodes.com/auth',
+                redirect_uri='http://localhost:5000/auth',
 
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
@@ -110,7 +112,7 @@ class GoalsHandler(TemplateHandler):
     name = self.current_user.name
     # user_id = int(self.current_user.user_id)
     user_id = int(self.current_user.brain_id)
-    goals = Goals.select().where(Goals.person_id == user_id)
+    goals = Goals.select().where(Goals.person_id == user_id).where(Goals.achievement == False)
     print(goals)
     print('User name: ', name, ',', 'User id: ', user_id)
     self.set_header("Content-Type", 'html')
@@ -129,7 +131,8 @@ class GoalsHandler(TemplateHandler):
       print(user_id)
       goal = Goals.create(
           person_id=brain_id,
-          title=event
+          title=event,
+          achievement=False,
         )
       deadline = self.get_body_argument('deadline')
       http = credentials.authorize(httplib2.Http())
@@ -139,7 +142,7 @@ class GoalsHandler(TemplateHandler):
       created_event = service.events().quickAdd(
           calendarId='primary',  text=event + ' ' + deadline).execute()
       print(created_event['id'])
-      self.render_template('goals.html', {'name': name, 'goal': goal})
+      self.redirect('goals', {'name': name, 'goal': goal})
 
 class MainHandler(TemplateHandler):
   def get(self):
@@ -196,7 +199,18 @@ class MapPageHandler(TemplateHandler):
     self.render_template('mapPage.html', {})
 
 
+class AcheivedHandler(TemplateHandler):
+    def get(self, goal_id):
+        # retrieve goal
+        goal = Goals.select().where(Goals.id == goal_id).get()
+        # mark complete
+        goal.achievement = True
+        goal.reminder = datetime.datetime.utcnow()
+        # save
+        goal.save()
 
+        d = datetime.datetime.now()
+        self.redirect('/goals?ts={}'.format(d.timestamp()))
 
 
 def make_app():
@@ -208,6 +222,7 @@ def make_app():
     (r"/page/mapPage.html", MapPageHandler),
     (r"/goals", GoalsHandler),
     (r"/page/(.*)", PageHandler),
+    (r"/achieved/(.*)", AcheivedHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
   ], **SETTINGS)
 
