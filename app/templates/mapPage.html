@@ -8,48 +8,35 @@
     <script type="text/javascript" src="../../static/vis-4.21.0/dist/vis.js"></script>
     <link href="../../static/vis-4.21.0/dist/vis.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+
+
   </head>
 <body>
   <div id=logo>
     <img id=brain_logo src="../../static/imgs/logo_brain.png" alt="Brain Logo"
     width:"40" height:"40">
   </div>
-  <h1>Mind Map</h1>
+  <h1>Mind Cloud</h1>
   <div id="mynetwork"></div>
 
   <div class="form-group">
-    <label for="goal">Set a Goal:</label>
-    <input type="text" class="form-control" id="goal">
-  </div>
-  <div class="form-group">
-    <label for="pwd">Set a Date:</label>
-    <input type="text" class="form-control" id="pwd">
-    <button type="button" class="btn btn-success btn-lg">Submit</button>
+    <label for="goal"></label>
+    <input id="node_label_input" type='text' placeholder='Add New Branch'></input>
+    <button id='set' type="button" class="btn btn-success btn-lg">Submit</button>
   </div>
 
   <script type="text/javascript">
     // create an array with nodes
 
-    var nodes = [
-        {id: 'brain_logo', label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
-        {id: 'save_money', label: 'Save Money'},
-        {id: 'be_happy', label: 'Be Happy'},
-        {id: 'cook_dinner', label: 'Cook Dinner'},
-        {id: 'don_t_buy_food_at_gas_stations', label: "Don't buy food at gas stations"},
-        {id: 'buy_car', label: 'Buy a Aston Martin!!!'}
-    ];
+    var nodes = new vis.DataSet([
+      {id: 1, label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
+  ]);
 
-
-    // new vis.DataSet() has been eliminated from nodes and edges.
-
-    // create an array with edges
-    var edges = [
-        {from: 'brain_logo', to: 'be_happy'},
-        {from: 'brain_logo', to: 'save_money'},
-        {from: 'save_money', to: 'cook_dinner'},
-        {from: 'save_money', to: 'don_t_buy_food_at_gas_stations'},
-        {from: 'brain_logo', to: 'buy_car'}
-    ];
+  var edges = new vis.DataSet([]);
 
     // create a network
     var container = document.getElementById('mynetwork');
@@ -151,6 +138,17 @@
     // initialize your network!
     var network = new vis.Network(container, data, options);
     // network.setOptions(centralOptions);
+
+    $(document).ready(function(){
+    i = 2
+    $('#set').click(function(){
+      nodes.add([newnode = {id: i, label: $('#node_label_input').val()}])
+      edges.add([newedge = {from: 1, to: i}]);
+      network.redraw()
+      i ++
+    })
+  });
+
   </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/
   GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
