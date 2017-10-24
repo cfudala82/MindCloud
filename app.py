@@ -36,6 +36,7 @@ ENV = Environment(
 )
 
 PORT = int(os.environ.get('PORT', '5000'))
+BASE_URL = os.environ.get('BASE_URL', 'http://localhost:5000')
 
 
 class TemplateHandler(tornado.web.RequestHandler):
@@ -57,8 +58,8 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
     def get(self):
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                # redirect_uri='http://mind-cloud.logancodes.com/auth',
-                redirect_uri='http://localhost:5000/auth',
+                # redirect_uri=BASE_URL + '/auth',
+                redirect_uri='http://mindcloud.logancodes.com/auth',
 
                 code=self.get_argument('code'))
             # print(access)
@@ -87,8 +88,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
 
         else:
             yield self.authorize_redirect(
-                # redirect_uri='http://mind-cloud.logancodes.com/auth',
-                redirect_uri='http://localhost:5000/auth',
+                redirect_uri='http://mindcloud.logancodes.com/auth',
 
                 client_id="1077705632035-fppmfl90a30ogk5c1udolng4muk2uf0g.apps.googleusercontent.com",
                 scope=['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
@@ -181,6 +181,21 @@ class AchievementsHandler(TemplateHandler):
     # send a data for name and achievements to the web page
     self.render_template('achievements.html', {'name': name, 'achievments': achievments})
 
+class MapPageHandler(TemplateHandler):
+  @tornado.web.authenticated
+  def get (self):
+
+    self.render_template('mapPage.html', {})
+
+    #{'goal': goal})
+
+    #(r"/page/mapPage.html", MapPageHandler),
+  def post (self):
+    #comment = self.get_body_argument('comment')
+    #print(comment)
+    self.render_template('mapPage.html', {})
+
+
 
 
 
@@ -190,6 +205,7 @@ def make_app():
     (r"/auth", GoogleOAuth2LoginHandler),
     (r"/Reminders", RemindersHandler),
     (r"/page/achievements.html", AchievementsHandler),
+    (r"/page/mapPage.html", MapPageHandler),
     (r"/goals", GoalsHandler),
     (r"/page/(.*)", PageHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
