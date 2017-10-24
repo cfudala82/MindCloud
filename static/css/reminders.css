@@ -8,24 +8,23 @@ calendar-container iframe {
     position: absolute;
     top:0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 40%;
+    height: 40%;
 }
 
 img {
     position: relative;
     position: absolute;
-    top: 100px;
-    right: 110px;
-    width: auto;
-    height: auto;
+    top: 50px;
+    right: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 h1{
 
-
-    background-color:#faff00;
+    background-color:rgb(255, 178, 0);
         font-family: "Bookman";
-        color: red;
+        color: white;
         text-align: center;
 }
