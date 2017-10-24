@@ -14,13 +14,17 @@
     <img id=brain_logo src="../../static/imgs/logo_brain.png" alt="Brain Logo"
     width:"40" height:"40">
   </div>
-  <h1>Mind Map</h1>
-  <div id="mynetwork"></div>
 
-  <div class="form-group">
-    <label for="goal">Set a Goal:</label>
-    <input type="text" class="form-control" id="goal">
+  <div>
+    <h1>Mind Map</h1>
+
+    <div id="mynetwork"></div>
   </div>
+
+    <div class="form-group">
+      <label for="goal">Set a Goal:</label>
+      <input type="text" class="form-control" id="goal">
+    </div>
   <div class="form-group">
     <label for="pwd">Set a Date:</label>
     <input type="text" class="form-control" id="pwd">
@@ -35,7 +39,7 @@
         {id: 'be_happy', label: 'Be Happy'},
         {id: 'cook_dinner', label: 'Cook Dinner'},
         {id: 'don_t_buy_food_at_gas_stations', label: "Don't buy food at gas stations"},
-        {id: 'buy_car', label: 'Buy a Aston Martin!!!'}
+        {id: 'buy_car', label: 'Buy an Aston Martin!!!'}
     ];
 
 
@@ -99,7 +103,7 @@
       },
 
       configure: {
-        enabled: false,
+        enabled: true,
         filter: 'nodes,edges',
         container: undefined,
         showButton: true
