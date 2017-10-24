@@ -112,7 +112,7 @@ class GoalsHandler(TemplateHandler):
     name = self.current_user.name
     # user_id = int(self.current_user.user_id)
     user_id = int(self.current_user.brain_id)
-    goals = Goals.select().where(Goals.person_id == user_id)
+    goals = Goals.select().where(Goals.person_id == user_id).where(Goals.achievement == False)
     print(goals)
     print('User name: ', name, ',', 'User id: ', user_id)
     self.set_header("Content-Type", 'html')
@@ -131,7 +131,8 @@ class GoalsHandler(TemplateHandler):
       print(user_id)
       goal = Goals.create(
           person_id=brain_id,
-          title=event
+          title=event,
+          achievement=False,
         )
       deadline = self.get_body_argument('deadline')
       http = credentials.authorize(httplib2.Http())
@@ -198,7 +199,18 @@ class MapPageHandler(TemplateHandler):
     self.render_template('mapPage.html', {})
 
 
+class AcheivedHandler(TemplateHandler):
+    def get(self, goal_id):
+        # retrieve goal
+        goal = Goals.select().where(Goals.id == goal_id).get()
+        # mark complete
+        goal.achievement = True
+        goal.reminder = datetime.datetime.utcnow()
+        # save
+        goal.save()
 
+        d = datetime.datetime.now()
+        self.redirect('/goals?ts={}'.format(d.timestamp()))
 
 
 def make_app():
@@ -210,6 +222,7 @@ def make_app():
     (r"/page/mapPage.html", MapPageHandler),
     (r"/goals", GoalsHandler),
     (r"/page/(.*)", PageHandler),
+    (r"/achieved/(.*)", AcheivedHandler),
     (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': 'static'})
   ], **SETTINGS)
 

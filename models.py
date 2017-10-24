@@ -4,7 +4,7 @@ import os
 
 import peewee
 from playhouse.db_url import connect
-from playhouse.postgres_ext import JSONField
+from playhouse.postgres_ext import JSONField, BooleanField
 
 DB = connect(
   os.environ.get(
@@ -24,7 +24,6 @@ class Person (BaseModel):
   user_id = peewee.CharField(max_length=60)
   user_email = peewee.CharField(max_length=60)
   # region = peewee.CharField(max_length=60)
-
   def __str__ (self):
     return self.name
 
@@ -32,7 +31,7 @@ class Person (BaseModel):
 class Goals (BaseModel):
   person = peewee.ForeignKeyField(Person, null=True)
   title = peewee.CharField(max_length=60)
-  achievement = peewee.TextField()
+  achievement = BooleanField(default=False, null=True)
   reminder = peewee.DateTimeField(
             default=datetime.datetime.utcnow)
 
