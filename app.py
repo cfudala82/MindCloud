@@ -60,7 +60,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
             access = yield self.get_authenticated_user(
                 # redirect_uri=BASE_URL + '/auth',
 
-                redirect_uri='http://mindcloud.logancodes.com/auth',
+                redirect_uri='http://mindcloud.mjspitzfaden.com/auth',
                 # redirect_uri='http://localhost:5000/auth',
 
 
@@ -92,7 +92,7 @@ class GoogleOAuth2LoginHandler(tornado.web.RequestHandler,
         else:
             yield self.authorize_redirect(
 
-                redirect_uri='http://mindcloud.logancodes.com/auth',
+                redirect_uri='http://mindcloud.mjspitzfaden.com/auth',
                 # redirect_uri='http://localhost:5000/auth',
 
 
