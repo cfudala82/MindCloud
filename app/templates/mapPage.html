@@ -5,10 +5,9 @@
 <script type="text/javascript" src="../../static/vis-4.21.0/dist/vis.js"></script>
 <link href="../../static/vis-4.21.0/dist/vis.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="../../static/css/mapPage.css">
-<script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+crossorigin="anonymous"></script>
 
 {% endblock %}
 
@@ -18,23 +17,25 @@
 
 {% block content %}
 <body>
-  <div id="container">
-  <div id=logo>
+  <!-- <div id=logo>
     <a href="/page/profile.html"><img id=brain_logo src="../../static/imgs/logo_brain.png" alt="Brain Logo"
     width:"40" height:"40"></img></a>
-  </div>
+  </div> -->
 
-  <header>
-    <h1>Mind Cloud</h1>
-  </header>
+  <div id="container">
+    <div class="row justify-content-center">
+      <header>
+        <h1>Mind Cloud</h1>
+      </header>
 
-  <div id="mynetwork"></div>
+      <div id="mynetwork"></div>
 
-  <div class="form-group">
-    <label for="goal"></label>
-    <input id="node_label_input" type='text' placeholder='Add New Branch'></input>
-    <button id='set' type="button" class="btn btn-success btn-lg">Submit</button>
-  </div>
+      <div class="form-group">
+        <label for="goal"></label>
+        <input id="node_label_input" type='text' placeholder='Add New Branch'></input>
+        <button id='set' type="button" class="btn btn-success btn-lg">Submit</button>
+      </div>
+    </div>
   </div>
 
   <script type="text/javascript">
@@ -42,7 +43,7 @@
     // create an array with nodes
 
     var nodes = new vis.DataSet([
-      {id: 1, label: 'Brain stuff', "shape": "image",
+      {id: 1, label: 'My Goals', "font": {"size": 10}, "color": "orange", "size": 45, "shape": "image",
       "image": "../../static/imgs/logo_brain.png", fixed: {x: true, y: true}},
   ]);
 
@@ -71,11 +72,10 @@
           }
         },
         "font": {
-          "color": "black",
+          "color": "OrangeRed",
           "face": "tahoma",
-          "size": 18,
+          "size": 16,
           "background": "rgba(233,153,73,0)",
-
           "strokeColor": "rgba(233,219,220,0)"
         },
         "shadow":{
@@ -97,7 +97,7 @@
           },
           "middle": {
             "enabled": true,
-            "scaleFactor": 0.45,
+            "scaleFactor": 0.55,
             "type": 'arrow'
           },
           "from": {
