@@ -21,7 +21,12 @@
 .img-fluid {
   width: 2000px;
   height: 250px;
+}
 
+a {
+  color: orange;
+  text-align: right;
+  font-size: 1.5rem;
 }
 
 img {
