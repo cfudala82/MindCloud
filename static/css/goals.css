@@ -1,51 +1,46 @@
-.Center{
+/*.Center{
     width:200px;
     height:200px;
-
-    margin:auto;
+    margin-top: 3rem;
+    margin-left: 20%;
     padding:0%;
     position: relative;
     top: 0; left: 0; bottom: 0; right: 0;
     border-radius:5%;
-}
+    text-align: center;
+}*/
+
+/*#quoteDisplay {
+  text-align: left;
+  margin-left: 13%;
+}*/
+
 .btn-bot{
     position: Center;
     bottom: 137px;
-
 }
 
-
-
+header {
+  background-color: orange;
+}
 
 html, body {
   height: 100%;
   width: 100%;
-  background-color: rgb(212, 206, 192);
-}
-
-.nav {
-  text-align: center;
-  background-color: orange;
-  margin-bottom: 1rem;
-}
-
-.nav2 {
-  background-color: orange;
-  margin: 0 auto;
+  background-color: white;
 }
 
 a {
-  color: white;
-  background-color: orange;
+  color: orange;
+  background-color: white;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
-
 
 h1, h2 {
   display: block;
   margin: 0 auto;
-  color: #fafdff;
+  color: orange;
   font-size: 1.5rem;
   margin-bottom: 1rem;
   text-align: center;
@@ -78,8 +73,9 @@ input {
 }
 
 img {
-  width: 105%;
-  height: 105%;
+  position: absolute;
+  width: 80%;
+  height: 60%;
   display: block;
   margin: 0 auto;
   margin-bottom: 10%;
@@ -93,99 +89,196 @@ ul {
   width: 20rem;
 }
 
-
-
 #modal {
-  background-color: white;
-  font-weight: bold;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  font-size: 1.2em;
-  text-align: center;
-  position: fixed;
-  border-style: solid;
-  border-radius: 25px;
-  border-color: black;
-  width: 10rem;
-  height: 6rem;
-  left: calc(50% - 5rem);
-  top: calc(50% - 3rem);
-  box-shadow: 10px 10px 5px #888888;
-  z-index: 2;
-  display: none;
+    background-color: white;
+    font-weight: bold;
+    padding-top: 1rem;
+    font-size: 2.5rem;
+    text-align: center;
+    color: orange;
+    position: fixed;
+    border-style: solid;
+    border-radius: 25px;
+    border-color: black;
+    width: 15rem;
+    height: 10rem;
+    left: calc(50% - 7rem);
+    top: calc(50% - 7rem);
+    box-shadow: 10px 10px 5px #888888;
+    z-index: 2;
+    display: none;
 }
-
+/*
 #set_goal, #view_goals {
   margin-top: 2rem;
+}*/
+
+nav {
+  margin-left: 20%;
+  margin-right: 5rem;
+
 }
 
-.container {
-  margin-right: 2.5rem;
+li {
+  color: lightblue;
 }
+
+/*.container {
+  margin-right: 2.5rem;
+}*/
 
 .hidden, .hidden_list {
   display: none;
 }
 
-.navbar-toggler {
-  border-color: none;
-  border-style: none;
-}
+/*@media screen and (min-width: 1023) and (max-width: 1024) {
 
-.navbar-light .navbar-nav .nav-link {
-  color: #fafdff;
-}
-
-@media screen and (min-width: 375px) and (max-width: 414px) {
-  h2 {
-    font-size: 1.05rem;
-  }
-
-  img {
-    width: 80%;
-    height: 80%;
-    margin-top: 5%;
-    margin-bottom: 0;
-  }
-
-  #view {
-    margin-top: -15%;
-  }
-
-  ul {
-    margin-left: 23%;
-  }
-}
-
-@media screen and (min-width: 415px) and (max-width: 667px) {
-  h2 {
-    font-size: 1.05rem;
-  }
-
-  img {
-    width: 135%;
-    height: 125%;
-    margin-bottom: 0;
-    margin-top: 5%;
-    margin-left: 40%;
-  }
-
-  ul {
-    margin-left: 23%;
-  }
-
-  #set_goal, #view_goals {
-    width: 10rem;
+  .Center {
     margin-left: 15%;
   }
 
-  #view_goals {
-     margin-top: 0%;
-   }
-
-  .container {
-    margin-left: 5%;
+  img {
+    position: absolute;
+    height: 80%;
+    width: 90%;
+    margin-left: 12%;
   }
 }
 
-/*make responsive for ipad landscape and iphone 6splus landscape*/
+@media screen and (min-width: 920px) and (max-width: 990px) {
+  nav {
+    margin-left: 36%;
+    margin-right: 21rem;
+    text-align: center;
+  }
+  #set_goal {
+    margin-left: -8%;
+  }
+  .Center {
+    margin-left: -1%;
+  }
+}
+
+  @media screen and (min-width: 600px) and (max-width: 920px) {
+    nav {
+      margin-left: 30%;
+      margin-right: 30%;
+      text-align: center;
+    }
+    #set_goal {
+      margin-left: -8%;
+    }
+    nav ul li {
+      color: orange;
+    }
+    .Center {
+      margin-left: -1%;
+    }
+  }
+
+  @media screen and (min-width: 667px) and (max-width: 667px) {
+    #view {
+      margin-left: 25%;
+    }
+  }
+  @media screen and (min-width: 736px) and (max-width: 736px) {
+    form {
+      margin-left: -60%;
+    }
+    .Center {
+      margin-left: -47%;
+    }
+    #view {
+      margin-left: -10%;
+    }
+    img {
+      position: absolute;
+      margin-left: -10%;
+    }
+  }
+
+@media screen and (min-width: 780px) and (max-width: 850px) {
+  .Center {
+    margin-left: -1%;
+  }
+  .row{
+    margin-left: 12%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 768px) {
+  .row {
+    margin-left: 12%;
+  }
+  img {
+    width: 70%;
+    height: 80%;
+    margin-left: 20%;
+  }
+  .Center {
+    margin-left: -1%;
+  }
+}
+
+@media screen and (min-width: 580px) and (max-width: 710px) {
+  .row {
+    margin-left: -8%;
+  }
+  img {
+    margin-left: 30%
+  }
+  .Center {
+    margin-left: -1%;
+  }
+}
+
+@media screen and (min-width: 580px) and (max-width: 710px) {
+
+  img {
+    margin-left: 30%
+  }
+  .Center {
+    margin-left: -1%;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  a {
+    margin-right: 30%;
+   }
+   img {
+     position: relative;
+     height: 40%;
+     margin-bottom: 0;
+     margin-top: -30%;
+   }
+   .Center {
+     z-index: 1;
+     margin-left: 25%;
+   }
+}
+
+@media screen and (max-width: 375px) {
+  a {
+    margin-right: 30%;
+   }
+   img {
+     position: relative;
+     height: 40%;
+     margin-bottom: 0;
+     margin-top: -30%;
+   }
+   .Center {
+     z-index: 1;
+     margin-left: 20%;
+   }
+}*/
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+
+/*make responsive for ipad landscape and iphone 6splus landscape

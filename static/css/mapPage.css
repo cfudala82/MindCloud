@@ -25,3 +25,7 @@ header {
   height: 60rem;
   background-color: rgb(213, 235, 241);
 }
+
+footer {
+  text-align: center;
+}

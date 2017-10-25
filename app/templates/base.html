@@ -11,23 +11,23 @@
       {% block extracss %}{% endblock %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/page/profile.html">Profile<span class="sr-only">(current)</span></a>
+        <ul class="nav navbar-nav ml-auto">
+          <li id='goals' class="nav-item">
+            <a class="nav-link" href="/goals">Goals<span class="sr-only">(current)</span></a>
           </li>
-          <li class="not_hiking nav-item">
-            <a class="nav-link" href="/page/mapPage.html">Mind Maps</a>
+          <li id='mindmap' class="nav-item">
+            <a class="nav-link" href="/mapPage">MindCloud</a>
           </li>
-          <li class="not_gaming nav-item">
+          <li id='reminders' class="nav-item">
             <a class="nav-link" href="/Reminders">Reminders</a>
           </li>
-          <li class="not_travel nav-item">
-            <a class="nav-link" href="/page/achievements.html">Achievements</a>
+          <li id='achievements' class="nav-item">
+            <a class="nav-link" href="/achievements">Achievements</a>
           </li>
         </ul>
       </div>
@@ -35,4 +35,8 @@
     {% block content %}
     {% endblock %}
   </body>
+  <footer>
+  Copyright&copy; 2017 Mind Cloud Inc.
+  </footer>
+
 </html>
