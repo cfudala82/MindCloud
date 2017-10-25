@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .navbar-light .bg-light {
   background-color: white;
 }
@@ -27,25 +28,29 @@
 img{
   max-width: 5%;
   height: auto;
+=======
+#logo, img {
+  width: 20%;
+>>>>>>> 7df17574d419b4e9bbcbbfe6b2a3491e812369d5
 }
 header {
-  display: block;
-  margin: 0 auto;
   width: 90%;
   height: 5%;
   padding-left: 1rem;
   background-color: orange;
   color: white;
 }
+
 #mynetwork {
-  display: block;
-  margin: 0 auto;
-  box-sizing: content-box;
   width: 90%;
-  height: 60rem;
+  height: 35rem;
   background-color: rgb(213, 235, 241);
 }
 
 footer {
+  font-size: .5rem;
   text-align: center;
+}
+.form-group {
+  padding-top: 1rem;
 }
