@@ -1,4 +1,4 @@
-orm {
+form {
     border: 3px solid #f1f1f1;
 }
 
@@ -19,11 +19,11 @@ button {
 
 
 .col-c {
-    margin-top: 20%;
+    margin-top: 5%;
 }
 
 .col-b {
-    margin-top: 5%;
+    margin-top: 0%;
 }
 
 .brain
