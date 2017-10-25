@@ -27,7 +27,7 @@ header {
   height: 60rem;
   background-color: rgb(213, 235, 241);
 }
-.form-group {
-  display: block;
-  padding-left: 5%;
+
+footer {
+  text-align: center;
 }
