@@ -1,29 +1,39 @@
-/*.Center{
-    width:200px;
-    height:200px;
-    margin-top: 3rem;
-    margin-left: 20%;
-    padding:0%;
-    position: relative;
-    top: 0; left: 0; bottom: 0; right: 0;
-    border-radius:5%;
-    text-align: center;
-}*/
-
-/*#quoteDisplay {
-  text-align: left;
-  margin-left: 13%;
-}*/
-
 .btn-bot{
     position: Center;
     bottom: 137px;
 }
 
-header {
+.navbar-light .bg-light {
+  background-color: white;
+}
+.navbar {
+  margin: 0;
   background-color: orange;
 }
 
+.navbar-toggler {
+  background-color: orange;
+  z-index: 6;
+  font-weight: bold;
+  font-size: 2rem;
+  border: transparent;
+}
+
+.orange_bg {
+  background-color: white;
+}
+
+
+.move {
+  margin-left: -40%;
+}
+
+#quoteDisplay {
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+}
 html, body {
   height: 100%;
   width: 100%;
@@ -32,9 +42,8 @@ html, body {
 
 a {
   color: orange;
-  background-color: white;
-  text-align: center;
-  font-size: 1rem;
+  text-align: right;
+  font-size: 1.5rem;
 }
 
 h1, h2 {
@@ -48,6 +57,10 @@ h1, h2 {
 
 h2 {
   font-size: 1.05rem;
+}
+
+h1 {
+  margin-top: 2rem;
 }
 
 button, input {
@@ -72,13 +85,10 @@ input {
   margin-bottom: .35rem;
 }
 
-img {
-  position: absolute;
-  width: 80%;
-  height: 60%;
-  display: block;
+.logo {
   margin: 0 auto;
-  margin-bottom: 10%;
+  width: 80%;
+  display: block;
 }
 
 ul {
@@ -108,10 +118,6 @@ ul {
     z-index: 2;
     display: none;
 }
-/*
-#set_goal, #view_goals {
-  margin-top: 2rem;
-}*/
 
 nav {
   margin-left: 20%;
@@ -131,148 +137,31 @@ li {
   display: none;
 }
 
-/*@media screen and (min-width: 1023) and (max-width: 1024) {
-
-  .Center {
-    margin-left: 15%;
-  }
-
-  img {
-    position: absolute;
-    height: 80%;
-    width: 90%;
-    margin-left: 12%;
-  }
-}
-
-@media screen and (min-width: 920px) and (max-width: 990px) {
-  nav {
-    margin-left: 36%;
-    margin-right: 21rem;
-    text-align: center;
-  }
-  #set_goal {
-    margin-left: -8%;
-  }
-  .Center {
-    margin-left: -1%;
-  }
-}
-
-  @media screen and (min-width: 600px) and (max-width: 920px) {
-    nav {
-      margin-left: 30%;
-      margin-right: 30%;
-      text-align: center;
-    }
-    #set_goal {
-      margin-left: -8%;
-    }
-    nav ul li {
-      color: orange;
-    }
-    .Center {
-      margin-left: -1%;
-    }
-  }
 
   @media screen and (min-width: 667px) and (max-width: 667px) {
-    #view {
-      margin-left: 25%;
+    #set_goal {
+        margin-left: -10%;
     }
-  }
-  @media screen and (min-width: 736px) and (max-width: 736px) {
-    form {
-      margin-left: -60%;
-    }
-    .Center {
-      margin-left: -47%;
-    }
-    #view {
-      margin-left: -10%;
-    }
-    img {
-      position: absolute;
-      margin-left: -10%;
+    .logo {
+          margin-left: 28%;
     }
   }
 
-@media screen and (min-width: 780px) and (max-width: 850px) {
-  .Center {
-    margin-left: -1%;
+  @media screen and (min-width: 580px) and (max-width: 736px) {
+    #set_goal {
+        margin-left: -10%
+    }
+    .logo {
+          margin-left: 28%;
+    }
   }
-  .row{
-    margin-left: 12%;
-  }
-}
 
-@media screen and (min-width: 768px) and (max-width: 768px) {
-  .row {
-    margin-left: 12%;
+  @media screen and (max-width: 414px) {
+    .logo {
+      width: 60%;
+      height: 40%;
+    }
   }
-  img {
-    width: 70%;
-    height: 80%;
-    margin-left: 20%;
-  }
-  .Center {
-    margin-left: -1%;
-  }
-}
-
-@media screen and (min-width: 580px) and (max-width: 710px) {
-  .row {
-    margin-left: -8%;
-  }
-  img {
-    margin-left: 30%
-  }
-  .Center {
-    margin-left: -1%;
-  }
-}
-
-@media screen and (min-width: 580px) and (max-width: 710px) {
-
-  img {
-    margin-left: 30%
-  }
-  .Center {
-    margin-left: -1%;
-  }
-}
-
-@media screen and (max-width: 414px) {
-  a {
-    margin-right: 30%;
-   }
-   img {
-     position: relative;
-     height: 40%;
-     margin-bottom: 0;
-     margin-top: -30%;
-   }
-   .Center {
-     z-index: 1;
-     margin-left: 25%;
-   }
-}
-
-@media screen and (max-width: 375px) {
-  a {
-    margin-right: 30%;
-   }
-   img {
-     position: relative;
-     height: 40%;
-     margin-bottom: 0;
-     margin-top: -30%;
-   }
-   .Center {
-     z-index: 1;
-     margin-left: 20%;
-   }
-}*/
 
 footer {
   text-align: center;
