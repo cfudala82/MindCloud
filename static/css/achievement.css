@@ -12,13 +12,13 @@ img {
 
 .rowlist {
   text-align: center;
-  background-color: lightblue;
+
 }
 
 .name {
   text-align: center;
-  background-color: lightblue;
-  color: red;
+
+  color: white;
 }
 
 .background {
@@ -27,4 +27,13 @@ img {
 
 footer {
   text-align: center;
+}
+
+.ach {
+  color: white;
+
+
+  list-style-type: decimal;
+  text-align: center;
+
 }
