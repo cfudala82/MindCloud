@@ -36,4 +36,4 @@ class Goals (BaseModel):
             default=datetime.datetime.utcnow)
 
   def __str__ (self):
-    return self.Person, self.title
+    return "{} {}".format(self.person, self.title)

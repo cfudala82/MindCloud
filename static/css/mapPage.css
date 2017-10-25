@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 .navbar-light .bg-light {
   background-color: white;
 }
@@ -21,17 +21,8 @@
 
 #container {
   /*background-color: #fad955;*/
-}
-#logo {
-  margin-left: 5%;
-}
-img{
-  max-width: 5%;
-  height: auto;
-=======
-#logo, img {
+}#logo, img {
   width: 20%;
->>>>>>> 7df17574d419b4e9bbcbbfe6b2a3491e812369d5
 }
 header {
   width: 90%;
