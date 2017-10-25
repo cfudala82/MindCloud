@@ -38,7 +38,8 @@
     // create an array with nodes
 
     var nodes = new vis.DataSet([
-      {id: 1, label: 'Brain Logo, My Goals', fixed: {x: true, y: true}},
+      {id: 1, label: 'Brain stuff', "shape": "image",
+      "image": "../../static/imgs/logo_brain.png", fixed: {x: true, y: true}},
   ]);
 
   var edges = new vis.DataSet([]);
@@ -66,36 +67,56 @@
           }
         },
         "font": {
-          "color": "white",
+          "color": "black",
           "face": "tahoma",
+          "size": 18,
           "background": "rgba(233,153,73,0)",
 
           "strokeColor": "rgba(233,219,220,0)"
         },
+        "shadow":{
+          "enabled": "false",
+          "color": 'rgba(0,0,0,0.5)',
+          "size":"10",
+          "x":"5",
+          "y":"5"
+        },
+        "shape": "image",
+        "image": "../../static/imgs/clouds.png",
+      },
       "edges": {
         "arrows": {
-          "from": {
+          "to": {
             "enabled": true,
-            "scalefactor": 0.35,
+            "scaleFactor": 0.35,
+            "type": 'arrow'
+          },
+          "middle": {
+            "enabled": true,
+            "scaleFactor": 0.45,
+            "type": 'arrow'
+          },
+          "from": {
+            "enabled": false,
+            "scaleFactor": 0.35,
             "type": 'arrow'
           }
         },
         "arrowStrikethrough": true,
         "shadow": {
           "enabled": true,
-          "color": "light gray",
+          "color": "gray",
           "y": 0
         },
         "smooth": {
           "forceDirection": "none"
         }
-      }
-
-
       },
 
+
+
       configure: {
-        enabled: true,
+        enabled: false,
         filter: 'nodes,edges',
         container: undefined,
         showButton: true
@@ -140,7 +161,7 @@
         deleteClusterError: 'Clusters cannot be deleted.',
         editClusterError: 'Clusters cannot be edited.'
       }
-    }
+    };
 
     // network.setOptions(options);
 
