@@ -173,14 +173,12 @@ SETTINGS = {
 class AchievementsHandler(TemplateHandler):
   @tornado.web.authenticated
   def get (self):
+    user_id = int(self.current_user.brain_id)
     # finds a list of achievments
-    achievments = (Goals
-                   .select(Goals.achievement).limit(3)
-                   .join(Person)
-                   .where(self.current_user.id==Goals.person_id)
-                   .order_by(+Goals.reminder))
+    achievments = (Goals.select(Goals.title).limit(3).where(Goals.person_id == user_id).where(Goals.achievement == True).select())
     # gets the users name
     name = self.current_user.name
+
     # send a data for name and achievements to the web page
     self.render_template('achievements.html', {'name': name, 'achievments': achievments})
 

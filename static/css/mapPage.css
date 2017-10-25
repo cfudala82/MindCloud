@@ -1,4 +1,27 @@
-#logo, img {
+
+.navbar-light .bg-light {
+  background-color: white;
+}
+.navbar {
+  margin: 0;
+  background-color: orange;
+}
+
+.navbar-toggler {
+  background-color: orange;
+  z-index: 6;
+  font-weight: bold;
+  font-size: 2rem;
+  border: transparent;
+}
+
+.orange_bg {
+  background-color: white;
+}
+
+#container {
+  /*background-color: #fad955;*/
+}#logo, img {
   width: 20%;
 }
 header {

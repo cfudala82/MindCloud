@@ -34,12 +34,13 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-4 col-md-4">
-        <img src='/static/img/pic3.png'>
+      <div class="col-xs-12 col-sm-4 col-md-4 justify-content-center">
+        <img class='logo' src='/static/imgs/logo_brain.png'>
       </div>
       <div id="view_goals" class="col-xs-12 col-sm-4 col-md-4">
         <button id="view" type="submit">View Current Goals</button>
           <ul class="hidden_list">
+            <h2 class='move hidden_list'>Click to Mark Achieved</h2>
             {% for goal in goals %}
             <li>
                 <a href="/achieved/{{ goal.id }}">{{ goal.title }}</a>
@@ -67,7 +68,7 @@
         $('#modal').show();
       });
       $('#view_goals').click(function(){
-        $('ul').toggleClass('hidden_list')
+        $('ul, h2').toggleClass('hidden_list')
       });
       $('#goals').hide();
     </script>
