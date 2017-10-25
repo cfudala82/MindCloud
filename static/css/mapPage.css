@@ -18,18 +18,26 @@
 .orange_bg {
   background-color: white;
 }
+a {
+  color: orange;
+  text-align: right;
+  font-size: 1.5rem;
+}
 
 #container {
   /*background-color: #fad955;*/
 }#logo, img {
   width: 20%;
 }
+
 header {
-  width: 90%;
-  height: 5%;
-  padding-left: 1rem;
-  background-color: orange;
-  color: white;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 90%;
+    height: 5%;
+    padding-left: 1rem;
+    color: Orangered;
+    text-align: center;
 }
 
 #mynetwork {
